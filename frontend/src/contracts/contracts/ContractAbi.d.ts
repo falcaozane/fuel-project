@@ -4,9 +4,9 @@
 /* eslint-disable */
 
 /*
-  Fuels version: 0.93.0
-  Forc version: 0.62.0
-  Fuel-Core version: 0.31.0
+  Fuels version: 0.88.1
+  Forc version: 0.59.0
+  Fuel-Core version: 0.26.0
 */
 
 import type {
@@ -18,7 +18,6 @@ import type {
   FunctionFragment,
   Interface,
   InvokeFunction,
-  StrSlice,
 } from 'fuels';
 
 import type { Enum } from "./common";
@@ -37,7 +36,7 @@ export type ContractIdOutput = ContractIdInput;
 export type ItemInput = { id: BigNumberish, price: BigNumberish, owner: IdentityInput, metadata: string, total_bought: BigNumberish };
 export type ItemOutput = { id: BN, price: BN, owner: IdentityOutput, metadata: string, total_bought: BN };
 
-export interface ContractAbiInterface extends Interface {
+interface ContractAbiInterface extends Interface {
   functions: {
     buy_item: FunctionFragment;
     get_count: FunctionFragment;
@@ -46,6 +45,20 @@ export interface ContractAbiInterface extends Interface {
     list_item: FunctionFragment;
     withdraw_funds: FunctionFragment;
   };
+
+  encodeFunctionData(functionFragment: 'buy_item', values: [BigNumberish]): Uint8Array;
+  encodeFunctionData(functionFragment: 'get_count', values: []): Uint8Array;
+  encodeFunctionData(functionFragment: 'get_item', values: [BigNumberish]): Uint8Array;
+  encodeFunctionData(functionFragment: 'initialize_owner', values: []): Uint8Array;
+  encodeFunctionData(functionFragment: 'list_item', values: [BigNumberish, string]): Uint8Array;
+  encodeFunctionData(functionFragment: 'withdraw_funds', values: []): Uint8Array;
+
+  decodeFunctionData(functionFragment: 'buy_item', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'get_count', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'get_item', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'initialize_owner', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'list_item', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'withdraw_funds', data: BytesLike): DecodedValue;
 }
 
 export class ContractAbi extends Contract {

@@ -4,13 +4,13 @@
 /* eslint-disable */
 
 /*
-  Fuels version: 0.93.0
-  Forc version: 0.62.0
-  Fuel-Core version: 0.31.0
+  Fuels version: 0.88.1
+  Forc version: 0.59.0
+  Fuel-Core version: 0.26.0
 */
 
 import { Interface, Contract, ContractFactory } from "fuels";
-import type { Provider, Account, AbstractAddress, BytesLike, DeployContractOptions, StorageSlot, DeployContractResult } from "fuels";
+import type { Provider, Account, AbstractAddress, BytesLike, DeployContractOptions, StorageSlot } from "fuels";
 import type { ContractAbi, ContractAbiInterface } from "../ContractAbi";
 
 const _abi = {
@@ -325,32 +325,36 @@ const _storageSlots: StorageSlot[] = [
   }
 ];
 
-export const ContractAbi__factory = {
-  abi: _abi,
+export class ContractAbi__factory {
+  static readonly abi = _abi;
 
-  storageSlots: _storageSlots,
+  static readonly storageSlots = _storageSlots;
 
-  createInterface(): ContractAbiInterface {
+  static createInterface(): ContractAbiInterface {
     return new Interface(_abi) as unknown as ContractAbiInterface
-  },
+  }
 
-  connect(
+  static connect(
     id: string | AbstractAddress,
     accountOrProvider: Account | Provider
   ): ContractAbi {
     return new Contract(id, _abi, accountOrProvider) as unknown as ContractAbi
-  },
+  }
 
-  async deployContract(
+  static async deployContract(
     bytecode: BytesLike,
     wallet: Account,
     options: DeployContractOptions = {}
-  ): Promise<DeployContractResult<ContractAbi>> {
+  ): Promise<ContractAbi> {
     const factory = new ContractFactory(bytecode, _abi, wallet);
 
-    return factory.deployContract<ContractAbi>({
-      storageSlots: _storageSlots,
+    const { storageSlots } = ContractAbi__factory;
+
+    const contract = await factory.deployContract({
+      storageSlots,
       ...options,
     });
-  },
+
+    return contract as unknown as ContractAbi;
+  }
 }
