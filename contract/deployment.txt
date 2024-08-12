@@ -1,0 +1,3 @@
+Network: https://testnet.fuel.network
+Contract ID: 0x3b4bdb052bf5be48911786795b17d77226a23dabcefdc79f16dc588ba39d784c
+Deployed in block 0072e129
