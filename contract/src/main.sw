@@ -15,15 +15,16 @@ struct Item {
     id: u64,
     price: u64,
     owner: Identity,
-    metadata: str[20],
+    description: str[50],
+    image_url: str[50],
     total_bought: u64,
 }
 
 abi SwayStore {
     // a function to list an item for sale
-    // takes the price and metadata as args
+    // takes the price and description as args
     #[storage(read, write)]
-    fn list_item(price: u64, metadata: str[20]);
+    fn list_item(price: u64, description: str[50], image_url: str[50]);
 
     // a function to buy an item
     // takes the item id as the arg
@@ -64,7 +65,7 @@ enum InvalidError {
 
 impl SwayStore for Contract {
     #[storage(read, write)]
-    fn list_item(price: u64, metadata: str[20]) {
+    fn list_item(price: u64, description: str[50], image_url: str[50]) {
         // increment the item counter
         storage
             .item_counter
@@ -78,7 +79,8 @@ impl SwayStore for Contract {
             id: storage.item_counter.try_read().unwrap(),
             price: price,
             owner: sender,
-            metadata: metadata,
+            description: description,
+            image_url: image_url,
             total_bought: 0,
         };
 
@@ -115,7 +117,7 @@ impl SwayStore for Contract {
         storage.item_map.insert(item_id, item);
 
         // only charge commission if price is more than 0.1 ETH
-        if amount > 100_000_000 {
+        if amount > 50_000_000 {
             // keep a 5% commission
             let commission = amount / 20;
             let new_amount = amount - commission;

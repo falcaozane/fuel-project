@@ -6,7 +6,7 @@ import ListItem from "./components/ListItem";
 import "./App.css";
  
 const CONTRACT_ID =
-  "0x3b4bdb052bf5be48911786795b17d77226a23dabcefdc79f16dc588ba39d784c";
+  "0x95b60a1452c8324ec5cb6c93ca694d4aaefefdcc166faa955f4aaae69184b99b";
  
 function App() {
   const [active, setActive] = useState<"all-items" | "list-item">("all-items");

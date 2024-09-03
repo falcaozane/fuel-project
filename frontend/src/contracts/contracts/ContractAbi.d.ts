@@ -33,8 +33,8 @@ export type AssetIdInput = { bits: string };
 export type AssetIdOutput = AssetIdInput;
 export type ContractIdInput = { bits: string };
 export type ContractIdOutput = ContractIdInput;
-export type ItemInput = { id: BigNumberish, price: BigNumberish, owner: IdentityInput, metadata: string, total_bought: BigNumberish };
-export type ItemOutput = { id: BN, price: BN, owner: IdentityOutput, metadata: string, total_bought: BN };
+export type ItemInput = { id: BigNumberish, price: BigNumberish, owner: IdentityInput, description: string, image_url: string, total_bought: BigNumberish };
+export type ItemOutput = { id: BN, price: BN, owner: IdentityOutput, description: string, image_url: string, total_bought: BN };
 
 interface ContractAbiInterface extends Interface {
   functions: {
@@ -50,7 +50,7 @@ interface ContractAbiInterface extends Interface {
   encodeFunctionData(functionFragment: 'get_count', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'get_item', values: [BigNumberish]): Uint8Array;
   encodeFunctionData(functionFragment: 'initialize_owner', values: []): Uint8Array;
-  encodeFunctionData(functionFragment: 'list_item', values: [BigNumberish, string]): Uint8Array;
+  encodeFunctionData(functionFragment: 'list_item', values: [BigNumberish, string, string]): Uint8Array;
   encodeFunctionData(functionFragment: 'withdraw_funds', values: []): Uint8Array;
 
   decodeFunctionData(functionFragment: 'buy_item', data: BytesLike): DecodedValue;
@@ -68,7 +68,7 @@ export class ContractAbi extends Contract {
     get_count: InvokeFunction<[], BN>;
     get_item: InvokeFunction<[item_id: BigNumberish], ItemOutput>;
     initialize_owner: InvokeFunction<[], IdentityOutput>;
-    list_item: InvokeFunction<[price: BigNumberish, metadata: string], void>;
+    list_item: InvokeFunction<[price: BigNumberish, description: string, image_url: string], void>;
     withdraw_funds: InvokeFunction<[], void>;
   };
 }

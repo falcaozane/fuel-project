@@ -75,7 +75,7 @@ const _abi = {
     },
     {
       "typeId": 5,
-      "type": "str[20]",
+      "type": "str[50]",
       "components": null,
       "typeParameters": null
     },
@@ -135,7 +135,12 @@ const _abi = {
           "typeArguments": null
         },
         {
-          "name": "metadata",
+          "name": "description",
+          "type": 5,
+          "typeArguments": null
+        },
+        {
+          "name": "image_url",
           "type": 5,
           "typeArguments": null
         },
@@ -249,7 +254,12 @@ const _abi = {
           "typeArguments": null
         },
         {
-          "name": "metadata",
+          "name": "description",
+          "type": 5,
+          "typeArguments": null
+        },
+        {
+          "name": "image_url",
           "type": 5,
           "typeArguments": null
         }

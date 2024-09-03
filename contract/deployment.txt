@@ -1,3 +1,10 @@
 Network: https://testnet.fuel.network
 Contract ID: 0x3b4bdb052bf5be48911786795b17d77226a23dabcefdc79f16dc588ba39d784c
 Deployed in block 0072e129
+
+
+Contract contract Deployed! on 3/9/2024
+
+Network: https://testnet.fuel.network
+Contract ID: 0x95b60a1452c8324ec5cb6c93ca694d4aaefefdcc166faa955f4aaae69184b99b
+Deployed in block 008fafb6
